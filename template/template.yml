@@ -1,0 +1,32 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  # todo 替换环境配置参数
+  {{ service_name }}:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: ''
+      Role: >-
+        acs:ram::{{ account_id }}:role/{{ role }}
+      LogConfig:
+        Project: {{ log_project }}
+        Logstore: {{ leg_store }}
+      VpcConfig:
+        VpcId: {{ vpc_id }}
+        VSwitchIds:
+          - {{ vsw_id }}
+        SecurityGroupId: {{ sg_id }}
+    {{ function_name }}:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dist/index.run
+        Runtime: nodejs12
+        CodeUri: ./
+        Timeout: 20
+        MemorySize: 1024
+      Events:
+        http:
+          Type: HTTP
+          Properties:
+            AuthType: FUNCTION
+            Methods: ['POST']

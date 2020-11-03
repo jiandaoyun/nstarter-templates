@@ -1,0 +1,3 @@
+RUNTIME nodejs12
+COPY ./package.json ./.npmrc ./
+RUN npm install --production
