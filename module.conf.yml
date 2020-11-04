@@ -1,0 +1,31 @@
+# Project template module description file
+
+modules:
+  - name: Function Compute
+    label: fc
+    type: components
+    default: true
+    files:
+      - src/**
+
+module_types:
+  - name: components
+    label: components
+
+ignore_files:
+  - .git/**
+  - .idea/**
+  - .vscode/**
+  - .nyc_output/**
+  - dist/**
+  - log/**
+  - lint/**
+  - coverage/**
+  - node_modules/**
+  - conf.d/config.override.*
+  - package-lock.json
+  - module.conf.yml
+  - .fun/**
+  - .fcli/**
+  - .env
+  - .Funfile.generated.dockerfile
