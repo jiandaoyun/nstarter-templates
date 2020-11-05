@@ -1,16 +1,7 @@
 # Project template module description file
-
 modules:
-  - name: Function Compute
-    label: fc
-    type: components
-    default: true
-    files:
-      - src/**
 
 module_types:
-  - name: components
-    label: components
 
 ignore_files:
   - .git/**
