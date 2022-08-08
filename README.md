@@ -2,6 +2,14 @@
 
 本项目提供了一个采用用于初始化 npm 模块包的 `nstarter` 模板工程。
 
+## 使用方法
+
+```bash
+nstarter config set template.npm <repo_url>
+
+nstarter deploy --template npm <target_dir>
+```
+
 ## 目录结构
 
 ```
