@@ -1,25 +1,43 @@
-VERSION = $(shell node -pe "require('./package.json').version")
-DOCKER_IMG = app
+VERSION = $(shell cat VERSION)
+
+BRANCH ?= dev
+BRANCH_LABEL = $(subst /,_,${BRANCH})
+IMAGE_NAME = app
+
+# 镜像标签
+ifeq ($(shell echo ${BRANCH} | head -c 6),master)
+	# 生产环境
+	DOCKER_IMG = ${IMAGE_NAME}:${VERSION}
+else
+	# 测试环境按分支命名镜像
+	DOCKER_IMG = ${IMAGE_NAME}:${BRANCH_LABEL}
+endif
+
+docker-compile:
+	docker build --target compile .
+
+docker-test:
+	docker build \
+ 		--target=test-report \
+ 		--progress=plain \
+ 		-o report \
+ 		.
 
 docker-build:
 	docker build --target=runtime \
 		--progress=plain \
-		-t ${DOCKER_IMG}:${VERSION} \
-		-t ${DOCKER_IMG}:latest \
+		-t ${DOCKER_IMG} \
     	.
 
-docker-test:
-	docker build \
- 		--target=archive \
- 		--progress=plain \
- 		--output type=local,dest=./ \
- 		.
-
-docker-image:
-	docker run -it ${DOCKER_IMG} sh
+docker-push:
+	docker tag ${DOCKER_IMG} ${DOCKER_REGISTRY}/${DOCKER_IMG}
+	docker push ${DOCKER_REGISTRY}/${DOCKER_IMG} > digest.txt
+	$(if $(filter $(shell echo ${BRANCH} | head -c 6),master), \
+		docker tag ${DOCKER_IMG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest && \
+		docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest > digest.txt \
+	)
 
 clean:
-	rm -rf .nyc_output/ coverage/ dist/ tmp/ build/ lint/
-	rm -rf public/*
+	rm -rf lint/ coverage/ digest.txt
 
 .PHONY: clean
