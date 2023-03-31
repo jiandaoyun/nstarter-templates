@@ -38,6 +38,6 @@ docker-push:
 	)
 
 clean:
-	rm -rf lint/ coverage/ digest.txt
+	rm -rf report/ digest.txt
 
 .PHONY: clean
