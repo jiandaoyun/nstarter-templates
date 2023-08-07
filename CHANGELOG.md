@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.1
+
+* 组件升级
+  - 升级 nstarter-core -> 1.0.1, 修复请求时间跟踪问题
+  - 升级 nstarter-utils -> 0.3.2
+
+* 安全漏洞修复
+  - 升级 i18next-scanner
+  - 升级 socket.io -> 4.7.2
+
 ## 2.0.0
 
 * 规范变更
