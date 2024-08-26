@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import path from 'path';
 import { Logger, RequestLogger, ContextProvider } from 'nstarter-core';
 import { defaultTransports, reqMetaFormatter, requestTransports } from './lib/logger';
 import { Context } from '../context';
@@ -23,7 +24,7 @@ export const beforeLoad = () => {
     //#module grpc_server|grpc_client
     // 加载 grpc proto buf 定义
     loadProtoPackage({
-        protoPath: './resources/grpc/worker.proto',
+        protoPath: path.join(__dirname, '../../../resources/grpc/worker.proto'),
         package: 'worker'
     });
     //#endmodule grpc_server|grpc_client

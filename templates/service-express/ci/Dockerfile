@@ -1,4 +1,5 @@
-ARG NODE_IMAGE=node:18.13.0-alpine
+# syntax=docker/dockerfile:1.7-labs
+ARG NODE_IMAGE=node:20.16.0-alpine
 
 # 基础构建环境
 FROM ${NODE_IMAGE} AS build-env
@@ -51,4 +52,4 @@ EXPOSE 3000
 COPY --from=artifacts /var/app/output .
 
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["/usr/local/bin/node", "./dist/app.js"]
+CMD ["/usr/local/bin/node", "./server/dist/app.js"]

@@ -1,9 +1,11 @@
 import type { ErrorRequestHandler } from 'express';
 import httpStatus from 'http-status';
+import { Logger } from 'nstarter-core';
 
 export class ErrorHandler {
     public static viewErrorHandler: ErrorRequestHandler = ((err, req, res, next) => {
         if (err && !err.isNsError) {
+            Logger.error(err);
             return res.status(httpStatus.BAD_REQUEST).end();
         }
         return res.status(httpStatus.BAD_REQUEST).render('error', {
@@ -14,6 +16,7 @@ export class ErrorHandler {
 
     public static requestErrorHandler: ErrorRequestHandler = ((err, req, res, next) => {
         if (err && !err.isNsError) {
+            Logger.error(err);
             return res.status(httpStatus.BAD_REQUEST).end();
         }
         return res.status(httpStatus.BAD_REQUEST).json({

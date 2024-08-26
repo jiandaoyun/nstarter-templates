@@ -11,6 +11,7 @@
   },
   "scripts": {
     "build": "npx nx run-many -t build",
+    "start": "node ./server/dist/app.js",
     "eslint": "npx nx run-many -t eslint",
     "eslint:html": "npx nx run-many -t eslint:html",
     "test": "npx nx run-many -t test",

@@ -61,11 +61,11 @@ export class HttpServerComponent extends BaseComponent {
 
         //#module web
         // view engine setup
-        app.set('views', './views');
+        app.set('views', './web/views');
         app.set('view engine', 'pug');
         app.enable('view cache');
         // static file path
-        app.use(express.static('./public'));
+        app.use(express.static('./web/public'));
 
         // session store
         app.use(session({

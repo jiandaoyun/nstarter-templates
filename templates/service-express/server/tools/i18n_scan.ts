@@ -21,7 +21,7 @@ const config = {
     filePatterns: [
         '*.ts'
     ],
-    output: './resources/i18n/server.pot'
+    output: '../resources/i18n/server.pot'
 };
 
 const _extPattern = _.map(config.filePatterns, path.extname);

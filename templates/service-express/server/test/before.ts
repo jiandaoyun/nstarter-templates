@@ -1,10 +1,11 @@
 //#module mongodb
-import { mongodb } from '../src/components';
+import { mongodb, mongodbComponent } from '../src/components';
 //#endmodule mongodb
 
 describe('connectDB', () => {
     //#module mongodb
     before((done) => {
+        mongodbComponent.init().then();
         mongodb.once('open', () => {
             console.log('mongodb connected');
             done();
