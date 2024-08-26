@@ -1,5 +1,56 @@
 # Changelog
 
+## 3.0.0
+
+* 基础环境升级
+    - 升级 Node.js >= 20.16.0
+    - 升级 TypeScript -> 5.5.4
+
+* 框架组件升级
+  - `nstarter-core` -> 1.2.0
+  - `nstarter-apm` -> 0.4.0
+  - `nstarter-cache` -> 0.3.0
+  - `nstarter-config` -> 0.3.0
+  - `nstarter-entity` -> 0.4.0
+  - `nstarter-metrics` -> 0.4.0
+    - `prom-client` -> 15.1.3
+  - `nstarter-grpc` -> 0.5.0
+  - `nstarter-mongodb` -> 0.6.0
+    - `mongoose` -> 7.8.0
+      > 其他兼容性说明 https://mongoosejs.com/docs/7.x/docs/migrating_to_7.html
+  - `nstarter-rabbitmq` -> 0.9.0
+  - `nstarter-redis` -> 0.3.0
+  - `nstarter-utils` -> 0.4.0
+
+* 第三方组件升级 
+  - `@sentry/node` -> 8.26.0
+    > https://docs.sentry.io/platforms/javascript/migration/v7-to-v8/
+  - `@socket.io/redis-adapter` -> 8.3.0
+  - `async` -> 3.2.6
+  - `axios` -> 1.7.5
+  - `connect-redis` -> 7.1.1
+    > https://github.com/tj/connect-redis/releases/tag/v7.0.0
+  - `cron` -> 3.1.7
+    > https://www.npmjs.com/package/cron#-migrating-from-v2-to-v3
+  - `express` -> 4.19.2
+  - `express-session` -> 1.18.0
+  - `helmet` -> 6.1.1
+  - `http-status` -> 1.7.4
+  - `i18next` -> 23.14.0
+    > https://www.i18next.com/misc/migration-guide#v22.x.x-to-v23.0.0
+  - `moment` -> 2.30.1
+  - `moment-timezone` -> 0.5.45 
+  - `nocache` -> 4.0.0
+  - `pug` -> 3.0.3
+  - `reflect-metadata` -> 0.2.2
+  - `socket.io` -> 4.7.5
+  - `triple-beam` -> 1.4.1
+  - `winston` -> 3.14.2
+  - `winston-transport` -> 4.7.1
+  - `winston-daily-rotate-file` -> 5.0.0
+  - `winston-loki` -> 6.1.2
+
+
 ## 2.0.1
 
 * 组件升级

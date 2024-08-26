@@ -25,3 +25,9 @@ resources/
 
 .nx/cache
 .nx/workspace-data
+
+#
+package-lock.json
+config.schema.json
+
+/resources/*.schema.json

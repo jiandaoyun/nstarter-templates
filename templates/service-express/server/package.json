@@ -1,0 +1,17 @@
+{
+  "name": "ns-app-server",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "rimraf dist && tsc --build tsconfig.json",
+    "build:watch": "tsc --build tsconfig.json --watch",
+    "start": "node ./dist/app.js",
+    "test": "nyc mocha --config .mocharc.yml",
+    "eslint": "eslint --ext .js,.ts ./src",
+    "eslint:html": "npm run eslint -- --output-file ./lint/eslint.html --format html",
+    "circular": "nstarter-circular ./src",
+    "json-schema": "typescript-json-schema \"./src/entities/**/*.ts\" \"*\" --out ./resources/entities.schema.json --required --excludePrivate --ignoreErrors --noExtraProps",
+    "config-schema": "typescript-json-schema \"./src/entities/config/*.ts\" Config --out ./config.schema.json --excludePrivate --ignoreErrors --noExtraProps --topRef",
+    "tool:i18n-scan": "ts-node ./tools/i18n_scan.ts"
+  }
+}
