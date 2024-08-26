@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { demoConsumer } from './demo.consumer';
-import { delayConsumer } from './delay.consumer';
-import { ConsumerEvents, RabbitMqConsumer } from 'nstarter-rabbitmq';
+import type { RabbitMqConsumer } from 'nstarter-rabbitmq';
+import { ConsumerEvents } from 'nstarter-rabbitmq';
 import { monitor } from '../../../components';
 
 // 绑定消费事件监听
@@ -30,8 +30,7 @@ const listenConsumerEvents = (consumer: RabbitMqConsumer<any>) => {
 
 export const loadQueueConsumers = () => {
     const consumerList = [
-        demoConsumer,
-        delayConsumer
+        demoConsumer
     ];
     _.forEach(consumerList, (consumer) => {
         consumer.register();

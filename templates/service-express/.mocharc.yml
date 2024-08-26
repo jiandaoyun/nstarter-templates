@@ -12,7 +12,6 @@ inline-diffs: false
 opts: false
 reporter: min
 require:
-  - 'source-map-support/register'
   - 'ts-node/register'
 retries: 1
 slow: 100

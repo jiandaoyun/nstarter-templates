@@ -1,15 +1,17 @@
-import { RequestHandler, Router } from 'express';
+import type { RequestHandler} from 'express';
+import { Router } from 'express';
 import URL from 'url';
 import httpStatus from 'http-status';
 
 import { BaseComponent, component, injectComponent } from 'nstarter-core';
 import { metricsView } from 'nstarter-metrics';
-import { metricsMonitor, MetricsMonitor } from './lib/monitor';
+import type { MetricsMonitor } from './lib/monitor';
+import { metricsMonitor } from './lib/monitor';
 //#module redis
-import { RedisComponent } from './redis.component';
+import type { RedisComponent } from './redis.component';
 //#endmodule redis
 //#module mongodb
-import { MongodbComponent } from './mongodb.component';
+import type { MongodbComponent } from './mongodb.component';
 //#endmodule mongodb
 
 @component()

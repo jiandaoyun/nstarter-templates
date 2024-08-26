@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import async from 'async';
-import { ServerWritableStream } from '@grpc/grpc-js';
+import type { ServerWritableStream } from '@grpc/grpc-js';
 
 import { service } from 'nstarter-core';
 import { grpcService, grpcStreamingMethod, grpcUnaryMethod } from 'nstarter-grpc';
 
-import { TaskConf, TaskReply, TaskResult } from '../types';
+import type { TaskConf, TaskReply, TaskResult } from '../types';
 
 @grpcService('worker', 'TaskService')
 @service()
@@ -16,7 +16,7 @@ export class TaskHandlerService {
      */
     @grpcUnaryMethod()
     public async runTask(conf: TaskConf): Promise<TaskResult> {
-        const { id, job } = conf;
+        const { job } = conf;
         return {
             status: 'ok',
             result: job

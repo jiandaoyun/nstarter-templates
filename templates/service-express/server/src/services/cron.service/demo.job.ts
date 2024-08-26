@@ -11,7 +11,7 @@ class DemoCronJob extends BaseCronJob {
 
     constructor() {
         super();
-        this._job = new CronJob({
+        this._job = CronJob.from({
             cronTime: this.cronTime,
             onTick: () => this.runTask(),
             start: this.isAutoStart,

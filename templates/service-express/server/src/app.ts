@@ -87,7 +87,7 @@ class AppManager {
             //#module redis
             await redisComponent.shutdown();
             //#endmodule redis
-        } catch (err) {
+        } catch (err: any) {
             Logger.error(err);
         } finally {
             process.exit(0);

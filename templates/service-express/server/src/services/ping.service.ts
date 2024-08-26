@@ -1,4 +1,4 @@
-import { PongService } from './pong.service';
+import type { PongService } from './pong.service';
 import { injectService, service } from 'nstarter-core';
 
 @service()

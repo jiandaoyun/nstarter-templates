@@ -1,16 +1,15 @@
 import async from 'async';
 import { ContextProvider, service } from 'nstarter-core';
-import { ProducerEvents, RabbitMqProducer } from 'nstarter-rabbitmq';
+import type { RabbitMqProducer } from 'nstarter-rabbitmq';
+import { ProducerEvents } from 'nstarter-rabbitmq';
 
 import { demoProducer } from './demo.producer';
-import { delayProducer } from './delay.producer';
 //#module monitor
 import { monitor } from '../../../components';
 //#endmodule monitor
 
 const producerList: RabbitMqProducer<any>[] = [
     demoProducer,
-    delayProducer
 ];
 
 /**
@@ -43,9 +42,5 @@ export class QueueService {
     public async sendNormalMessage(): Promise<void> {
         const context = ContextProvider.getContext();
         return await demoProducer.publish('demo:normal', context);
-    }
-
-    public async sendDelayMessage(): Promise<void> {
-        await delayProducer.publish('demo:delay');
     }
 }

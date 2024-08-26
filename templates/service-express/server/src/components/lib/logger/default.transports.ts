@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import os from 'os';
 import winston, { format } from 'winston';
-import Transport from 'winston-transport';
+import type Transport from 'winston-transport';
 import RotateFileTransport from 'winston-daily-rotate-file';
 import { LogLevel } from 'nstarter-core';
 //#module graylog

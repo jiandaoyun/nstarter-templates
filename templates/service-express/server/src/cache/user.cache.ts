@@ -1,6 +1,6 @@
 import { AbstractCacheManager } from 'nstarter-cache';
 import { redis } from '../components';
-import { IUserModel } from '../repositories';
+import type { IUserModel } from '../repositories';
 
 /**
  * 用户缓存管理器示例

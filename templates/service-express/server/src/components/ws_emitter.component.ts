@@ -1,7 +1,7 @@
 import { Emitter } from "@socket.io/redis-emitter";
 import { BaseComponent, component, injectComponent } from 'nstarter-core';
 
-import { RedisComponent } from './redis.component';
+import type { RedisComponent } from './redis.component';
 
 
 @component()

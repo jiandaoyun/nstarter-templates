@@ -1,4 +1,4 @@
-import { CronJob } from 'cron';
+import type { CronJob } from 'cron';
 
 export abstract class BaseCronJob {
     protected _job: CronJob;

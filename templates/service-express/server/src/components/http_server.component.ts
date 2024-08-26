@@ -3,7 +3,7 @@ import express from 'express';
 //#module web
 import session from 'express-session';
 //#module redis
-import connectRedis from 'connect-redis';
+import RedisStore from 'connect-redis';
 //#endmodule redis
 import cookieParser from 'cookie-parser';
 //#endmodule web
@@ -18,13 +18,13 @@ import {
     Logger
 } from 'nstarter-core';
 //#module redis
-import { RedisComponent } from './redis.component';
+import type { RedisComponent } from './redis.component';
 //#endmodule redis
 //#module i18n
-import { I18nComponent } from './i18n.component';
+import type { I18nComponent } from './i18n.component';
 //#endmodule i18n
 //#module monitor
-import { MonitorComponent } from './monitor.component';
+import type { MonitorComponent } from './monitor.component';
 //#endmodule monitor
 
 //#module web
@@ -68,9 +68,6 @@ export class HttpServerComponent extends BaseComponent {
         app.use(express.static('./public'));
 
         // session store
-        //#module redis
-        const RedisStore = connectRedis(session);
-        //#endmodule redis
         app.use(session({
             secret: config.server.session.secret,
             name: config.server.session.name,

@@ -1,6 +1,6 @@
 import { demoCronJob } from './demo.job';
 import _ from 'lodash';
-import { BaseCronJob } from './base.job';
+import type { BaseCronJob } from './base.job';
 
 export const cronJobs = [
     demoCronJob

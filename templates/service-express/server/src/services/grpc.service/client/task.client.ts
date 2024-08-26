@@ -1,12 +1,14 @@
-import { sendUnaryData } from '@grpc/grpc-js';
+import type { sendUnaryData } from '@grpc/grpc-js';
 import { service } from 'nstarter-core';
+import type {
+    StreamResult
+} from 'nstarter-grpc';
 import {
     grpcClient,
     grpcUnaryCall,
-    grpcStreamingCall,
-    StreamResult
+    grpcStreamingCall
 } from 'nstarter-grpc';
-import { TaskConf, TaskReply, TaskResult } from '../types';
+import type { TaskConf, TaskReply, TaskResult } from '../types';
 
 @grpcClient('worker', 'TaskService')
 @service()

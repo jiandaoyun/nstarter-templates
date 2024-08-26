@@ -1,4 +1,4 @@
-import { PingService } from './ping.service';
+import type { PingService } from './ping.service';
 import { injectService, service } from 'nstarter-core';
 //#module apm
 import { apmTransaction } from 'nstarter-apm';

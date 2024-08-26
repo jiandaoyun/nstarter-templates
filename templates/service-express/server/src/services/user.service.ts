@@ -1,7 +1,8 @@
 import { service } from 'nstarter-core';
 import { repoSession, transaction } from 'nstarter-mongodb';
 import { cacheGet, cacheKey } from 'nstarter-cache';
-import { userRepo, IUserModel } from '../repositories';
+import type { IUserModel } from '../repositories';
+import { userRepo } from '../repositories';
 import { userCacheManager } from '../cache';
 
 @service()
@@ -19,7 +20,7 @@ export class UserService {
     }
 
     @cacheGet(userCacheManager)
-    public async findUserByUsername(@cacheKey username: string): Promise<IUserModel> {
+    public async findUserByUsername(@cacheKey username: string): Promise<IUserModel | null> {
         return userRepo().findOneByUsername(username);
     }
 }

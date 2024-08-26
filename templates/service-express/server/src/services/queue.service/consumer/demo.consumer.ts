@@ -1,5 +1,6 @@
 import { ContextProvider, Logger } from 'nstarter-core';
-import { IQueueMessage, queueConsumerFactory } from 'nstarter-rabbitmq';
+import type { IQueueMessage} from 'nstarter-rabbitmq';
+import { queueConsumerFactory } from 'nstarter-rabbitmq';
 import { demoQueue } from '../queue';
 
 /**

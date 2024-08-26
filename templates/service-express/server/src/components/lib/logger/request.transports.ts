@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import winston, { format } from 'winston';
-import Transport from 'winston-transport';
+import type Transport from 'winston-transport';
 import RotateFileTransport from 'winston-daily-rotate-file';
 //#module graylog
 import Graylog2Transport from 'winston-graylog2';

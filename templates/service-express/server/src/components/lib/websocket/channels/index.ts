@@ -1,4 +1,4 @@
-import { BaseChannel } from './base.channel';
+import type { BaseChannel } from './base.channel';
 
 import { messageChannel } from './message.channel';
 

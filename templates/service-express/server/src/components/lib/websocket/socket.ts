@@ -1,20 +1,20 @@
-import _, { Dictionary } from 'lodash';
-import { Server, ServerResponse } from 'http';
+import type { Dictionary } from 'lodash';
+import _ from 'lodash';
+import type { Server} from 'http';
+import { ServerResponse } from 'http';
 import async from 'async';
-import { IRedis } from 'nstarter-redis';
+import type { IRedis } from 'nstarter-redis';
 import SocketIO from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import cookieParser from 'cookie-parser';
-import connectRedis from 'connect-redis';
+import RedisStore from 'connect-redis';
 import session from 'express-session';
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { Logger } from 'nstarter-core';
 
 import { config } from '../../../config';
 
 import { channels } from './channels';
-
-const RedisStore = connectRedis(session);
 
 export class WebSocket {
     public static createServer(redis: IRedis, server: Server): SocketIO.Server {

@@ -1,6 +1,8 @@
 import _ from 'lodash';
-import Transport, { TransportStreamOptions } from 'winston-transport';
-import { init, SeverityLevel, NodeOptions, withScope, captureException, captureMessage } from '@sentry/node';
+import type { TransportStreamOptions } from 'winston-transport';
+import Transport from 'winston-transport';
+import type { SeverityLevel, NodeOptions} from '@sentry/node';
+import { init, withScope, captureException, captureMessage } from '@sentry/node';
 import { LEVEL } from 'triple-beam';
 import { config } from '../../../../config';
 

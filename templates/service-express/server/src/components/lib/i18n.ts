@@ -2,11 +2,12 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import { gettextToI18next } from 'i18next-conv';
-import { Request, RequestHandler } from 'express';
+import type { Request, RequestHandler } from 'express';
 
 import { config } from '../../config';
 import { Consts } from '../../constants';
-import i18next, { i18n, ResourceLanguage, TFunction, TOptions } from 'i18next';
+import type { i18n, ResourceLanguage, TFunction, TOptions } from 'i18next';
+import i18next from 'i18next';
 
 const _translationPath = './resources/i18n/';
 

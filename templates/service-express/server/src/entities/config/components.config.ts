@@ -1,5 +1,5 @@
 //#module rabbitmq
-import { RabbitMQConfig } from 'nstarter-rabbitmq';
+import type { RabbitMQConfig } from 'nstarter-rabbitmq';
 //#endmodule rabbitmq
 
 //#module grpc_client

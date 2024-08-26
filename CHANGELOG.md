@@ -50,6 +50,8 @@
   - `winston-daily-rotate-file` -> 5.0.0
   - `winston-loki` -> 6.1.2
 
+* 其他变更 
+  - 移除已经不在使用延迟队列示例
 
 ## 2.0.1
 

@@ -1,4 +1,4 @@
-import { IRequestMetaFormatter } from 'nstarter-core';
+import type { IRequestMetaFormatter } from 'nstarter-core';
 
 /**
  * 请求日志元数据处理方法

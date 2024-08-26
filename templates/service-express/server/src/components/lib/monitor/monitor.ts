@@ -1,8 +1,9 @@
-import { IReqLabels, MetricsMonitor as NsMetricsMonitor } from 'nstarter-metrics';
+import type { IReqLabels} from 'nstarter-metrics';
+import { MetricsMonitor as NsMetricsMonitor } from 'nstarter-metrics';
 
+import type { IDemoLabels } from './metrics';
 import {
     demoMetric,
-    IDemoLabels,
     //#module rabbitmq
     queueJobCountMetric,
     queueJobTimeHistogramMetric,

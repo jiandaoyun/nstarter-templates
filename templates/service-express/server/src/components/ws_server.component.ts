@@ -1,9 +1,9 @@
-import SocketIO from 'socket.io';
+import type SocketIO from 'socket.io';
 import { BaseComponent, component, injectComponent } from 'nstarter-core';
 
 import { WebSocket } from './lib/websocket/socket';
-import { RedisComponent } from './redis.component';
-import { HttpServerComponent } from './http_server.component';
+import type { RedisComponent } from './redis.component';
+import type { HttpServerComponent } from './http_server.component';
 
 @component()
 export class WsServerComponent extends BaseComponent {

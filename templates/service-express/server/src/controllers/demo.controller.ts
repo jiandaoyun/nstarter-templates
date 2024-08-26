@@ -1,5 +1,5 @@
 import { ContextProvider, controller } from 'nstarter-core';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { Errors } from '../errors';
 import {
     //#module rabbitmq
@@ -19,7 +19,7 @@ export class DemoController {
      * @param res
      */
     public async goWelcomeView(req: Request, res: Response) {
-        const { params } = req;
+        // const { params } = req;
         return res.render('welcome', {
             //#module i18n
             //#alt
@@ -36,7 +36,7 @@ export class DemoController {
      * @param res
      */
     public async goErrorView(req: Request, res: Response) {
-        const { params } = req;
+        // const { params } = req;
         throw Errors.user(1001);
     };
 
@@ -46,7 +46,7 @@ export class DemoController {
      * @param res
      */
     public async doPing(req: Request, res: Response) {
-        const { body } = req;
+        // const { body } = req;
         const context = ContextProvider.getContext();
         pingService.ping();
         return res.json({
@@ -85,6 +85,9 @@ export class DemoController {
     public async doFindUser(req: Request, res: Response) {
         const { username } = req.body;
         const user = await userService.findUserByUsername(username);
+        if (!user) {
+            throw Errors.user(1001);
+        }
         return res.json({
             user: {
                 username: user.username,

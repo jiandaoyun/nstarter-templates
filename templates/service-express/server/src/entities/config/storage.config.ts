@@ -1,9 +1,9 @@
 //#module mongodb
-import { IMongodbConfig } from 'nstarter-mongodb';
+import type { IMongodbConfig } from 'nstarter-mongodb';
 //#endmodule mongodb
 
 //#module redis
-import { IRedisConfig } from 'nstarter-redis';
+import type { IRedisConfig } from 'nstarter-redis';
 //#endmodule redis
 
 export interface IStorageConf {

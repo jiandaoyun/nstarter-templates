@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { Socket } from 'socket.io';
-import { Request } from 'express';
+import type { Socket } from 'socket.io';
+import type { Request } from 'express';
 
 import { BaseChannel } from './base.channel';
 import { Consts } from '../../../../constants';
