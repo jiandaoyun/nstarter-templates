@@ -1,0 +1,8 @@
+{
+  "name": "nstarter-tpl-package",
+  "version": "0.3.0",
+  "private": true,
+  "workspaces": [
+    "template"
+  ]
+}
