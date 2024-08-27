@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { glob } from 'glob';
 import { createHash } from 'crypto';
-import { stringify } from 'safe-stable-stringify';
 import * as TJS from 'typescript-json-schema';
 
 const config = {
@@ -35,13 +34,14 @@ const generateHash = async (files: string[]) => {
     return shasum.digest('hex');
 };
 
-const buildSchema = async (files: string[]) => {
-    const program = TJS.getProgramFromFiles(files);
-    return TJS.generateSchema(program, "*", {
+const buildSchema = async () => {
+    await TJS.exec(globMatch, '*', {
+        ...TJS.getDefaultArgs(),
         required: true,
         excludePrivate: true,
         ignoreErrors: true,
-        noExtraProps: true
+        noExtraProps: true,
+        out: config.schemaFile
     });
 };
 
@@ -58,8 +58,7 @@ const runSchemaCheck = async () => {
         return;
     } else {
         console.log(`Entity files have been modified, re-generate json-schema files...`);
-        const schema = await buildSchema(files);
-        fs.writeFileSync(config.schemaFile, stringify(schema, null, 4), 'utf-8');
+        await buildSchema();
         fs.writeFileSync(hashFile, hash, 'utf-8');
     }
 };
