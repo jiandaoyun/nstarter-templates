@@ -1,14 +1,11 @@
 import _ from 'lodash';
 import async from 'async';
-import fs, { Stats } from 'fs';
+import fs from 'fs';
 import path from 'path';
 
 import { i18nextToPot } from 'i18next-conv';
 import { Parser } from 'i18next-scanner';
 
-const i18nParser = new Parser({
-    keySeparator: false
-});
 
 const config = {
     debug: true,
@@ -30,106 +27,89 @@ const _extPattern = _.map(config.filePatterns, path.extname);
  * @class I18nScanner
  */
 class I18nScanner {
+    private _i18nParser = new Parser({
+        keySeparator: false
+    });
+
     /**
+     * 扫描文件内容
      * @param {String} content
-     * @param {Function} callback
-     * @static
      */
-    public static scanContent(content: string, callback: Callback) {
-        i18nParser.parseFuncFromString(content, {
+    public scanContent(content: string) {
+        this._i18nParser.parseFuncFromString(content, {
             list: config.functions
         });
-        return callback();
     }
 
+
     /**
-     * @param {String|Path} filePath
-     * @param {Function} callback
+     * 扫描文件
+     * @param filePath
      * @static
      */
-    public static scanFile(filePath: string, callback: Callback) {
-        async.auto<{
-            stat: Stats,
-            scan: void
-        }>({
-            stat: (callback) => fs.stat(filePath, callback),
-            scan: ['stat', (results, callback) => {
-                const fileStats = results.stat;
-                if (fileStats.isDirectory()) {
-                    // Directory
-                    return I18nScanner.scanDir(filePath, callback);
-                } else if (fileStats.isFile()) {
-                    // file
-                    if (!_.includes(_extPattern, path.extname(filePath))) {
-                        return callback();
-                    }
-                    if (config.debug) {
-                        console.log(`[scan] ${ filePath }`);
-                    }
-                    async.auto<any>({
-                        content: (callback) =>
-                            fs.readFile(filePath, config.encoding, callback),
-                        parse: ['content', (results, callback) =>
-                            I18nScanner.scanContent(results.content, callback)]
-                    }, callback);
-                } else {
-                    return callback();
-                }
-            }]
-        }, callback);
+    public async scanFile(filePath: string) {
+        const fileStats = fs.statSync(filePath);
+        if (fileStats.isDirectory()) {
+            // Directory
+            return this.scanDir(filePath);
+        } else if (fileStats.isFile()) {
+            // file
+            if (!_.includes(_extPattern, path.extname(filePath))) {
+                return;
+            }
+            if (config.debug) {
+                console.log(`[scan] ${ filePath }`);
+            }
+            const content = fs.readFileSync(filePath, config.encoding as BufferEncoding);
+            return this.scanContent(content);
+        } else {
+            return;
+        }
     }
 
     /**
-     * @param {String|Path} basePath
-     * @param {Function} callback
-     * @static
+     * 扫描目录
+     * @param basePath
      */
-    public static scanDir(basePath: string, callback: Callback) {
-        async.auto<{
-            files: string[],
-            parse: void
-        }>({
-            files: (callback) => {
-                fs.readdir(basePath, callback);
-            },
-            parse: ['files', (results, callback) => {
-                async.eachLimit(results.files, config.concurrency, (file, callback) => {
-                    I18nScanner.scanFile(path.resolve(basePath, file), callback);
-                }, callback);
-            }]
-        }, callback);
+    public async scanDir(basePath: string) {
+        const files = fs.readdirSync(basePath);
+        await async.eachLimit(files, config.concurrency, async (file) => {
+            await this.scanFile(path.resolve(basePath, file));
+        });
     }
 
     /**
-     * @returns {Object} - I18n key map
+     * @returns I18n key map
      */
-    public static getI18nKeys() {
-        return _.get(i18nParser.get(), 'en.translation', {});
+    public getI18nKeys() {
+        return _.get(this._i18nParser.get(), 'en.translation', {});
     }
 }
 
-if (require.main === module) {
+/**
+ * 执行扫描
+ */
+const runScanner = async () => {
+    try {
+        const scanner = new I18nScanner();
+        await scanner.scanDir(config.src);
+        // 组装
+        const items = scanner.getI18nKeys();
+        const sorted: Record<string, string> = {};
+        _.forEach(_.keys(items).sort(), (key) => {
+            sorted[key] = items[key];
+        });
+        const i18nTemplate = await i18nextToPot('en', JSON.stringify(sorted));
+        fs.writeFileSync(config.output, i18nTemplate);
+        return process.exit(0);
+    } catch (err: any) {
+        console.error(err.stack);
+        return process.exit(1);
+    }
+}
+
+if (require.main !== module) {
     module.exports = I18nScanner;
 } else {
-    async.auto({
-        scan: (callback) =>
-            I18nScanner.scanDir(config.src, callback),
-        template: ['scan', (results, callback) => {
-            const items = I18nScanner.getI18nKeys();
-            const sorted: Record<string, string> = {};
-            _.forEach(_.keys(items).sort(), (key) => {
-                sorted[key] = items[key];
-            });
-            i18nextToPot('en', JSON.stringify(sorted))
-                .then((result: string) => {
-                    fs.writeFile(config.output, result, callback);
-                });
-        }]
-    }, (err) => {
-        if (err) {
-            console.error(err.stack);
-            return process.exit(1);
-        }
-        return process.exit(0);
-    });
+    runScanner().then();
 }

@@ -1,4 +1,5 @@
 import chai from 'chai';
+// @ts-ignore
 import mocha from 'mocha';
 import { userRepo, IUserModel } from '../../../src/repositories';
 import { userModel } from '../../../src/models/user.model';
@@ -27,7 +28,7 @@ describe('UserRepo', () => {
         try {
             const user = await userRepo().findOneByUsername(testUser.username);
             should.exist(user);
-            user.username.should.equal(testUser.username);
+            user!.username.should.equal(testUser.username);
         } catch (err) {
             should.not.exist(err);
         }

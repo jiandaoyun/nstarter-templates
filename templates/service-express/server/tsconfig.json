@@ -1,3 +1,10 @@
 {
-    "extends": "nstarter-tsconfig"
+  "extends": "nstarter-tsconfig",
+  "compilerOptions": {
+  },
+  "include": [
+    "${configDir}/src/**/*",
+    "${configDir}/test/**/*",
+    "${configDir}/tools/**/*"
+  ]
 }
