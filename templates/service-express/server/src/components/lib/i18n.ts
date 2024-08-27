@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
-import { gettextToI18next } from 'i18next-conv';
 import type { Request, RequestHandler } from 'express';
 
 import { config } from '../../config';
@@ -61,6 +60,9 @@ export class I18n {
     }
 
     private async _loadTranslations() {
+        // fixme esm support
+        const { gettextToI18next } = await import('i18next-conv');
+
         const files = fs.readdirSync(_translationPath);
         const translationFiles = _.filter(files, (file) =>
             path.extname(file) === '.po'
@@ -88,7 +90,7 @@ export class I18n {
             return translator;
         }
         if (!this._i18next) {
-            return (key: any) => key;
+            return ((key: any) => key) as TFunction<''>;
         }
         translator = this._i18next.getFixedT(targetLocale, o.namespace);
         this._translators[targetLocale] = translator;

@@ -3,9 +3,7 @@ import async from 'async';
 import fs from 'fs';
 import path from 'path';
 
-import { i18nextToPot } from 'i18next-conv';
 import { Parser } from 'i18next-scanner';
-
 
 const config = {
     debug: true,
@@ -90,6 +88,9 @@ class I18nScanner {
  * 执行扫描
  */
 const runScanner = async () => {
+    // fixme esm support
+    const { i18nextToPot } = await import('i18next-conv');
+
     try {
         const scanner = new I18nScanner();
         await scanner.scanDir(config.src);
