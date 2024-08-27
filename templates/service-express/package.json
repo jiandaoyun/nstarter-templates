@@ -14,8 +14,9 @@
     "start": "node ./server/dist/app.js",
     "eslint": "npx nx run-many -t eslint",
     "eslint:html": "npx nx run-many -t eslint:html",
+    "json-schema": "npx nx run-many -t json-schema",
     "test": "npx nx run-many -t test",
-    "clean": "npx nx run-many -t clean && rimraf .nx/cache && rmraf ./build"
+    "clean": "npx nx run-many -t clean && rimraf .nx/cache"
   },
   "workspaces": [
     "server",
@@ -64,7 +65,6 @@
   },
   "devDependencies": {
     "@types/async": "3.2.24",
-    "@types/connect-redis": "0.0.23",
     "@types/cookie-parser": "1.4.7",
     "@types/express": "4.17.21",
     "@types/express-session": "1.18.0",
@@ -89,7 +89,7 @@
     "rimraf": "^6.0.1",
     "semver": "^7.6.3",
     "ts-node": "^10.9.2",
-    "typescript": "~5.5.4"
+    "typescript": "5.5.4"
   },
   "engines": {
     "node": ">=20.16.0 <21.0",

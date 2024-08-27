@@ -17,7 +17,7 @@
 * 运行
 
   ```bash
-  node ./dist/app.js --require source-map-support/register
+  node ./server/dist/app.js --enable-source-maps
   ```
 
 * 更新 JSON Schema

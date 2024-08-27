@@ -17,17 +17,18 @@ docker-compile:
 	docker build --target compile .
 
 docker-test:
-	docker build \
- 		--target=test-report \
- 		--progress=plain \
- 		-o report \
- 		.
+	docker buildx build --target=test-report \
+		--progress=plain \
+		--file ci/Dockerfile \
+		-o report \
+		./
 
 docker-build:
-	docker build --target=runtime \
+	docker buildx build --target=runtime \
 		--progress=plain \
+		--file ci/Dockerfile \
 		-t ${DOCKER_IMG} \
-    	.
+		./
 
 docker-push:
 	docker tag ${DOCKER_IMG} ${DOCKER_REGISTRY}/${DOCKER_IMG}
