@@ -24,7 +24,7 @@ export const beforeLoad = () => {
     //#module grpc_server|grpc_client
     // 加载 grpc proto buf 定义
     loadProtoPackage({
-        protoPath: path.join(__dirname, '../../../resources/grpc/worker.proto'),
+        protoPath: path.join(__dirname, '../../resources/grpc/worker.proto'),
         package: 'worker'
     });
     //#endmodule grpc_server|grpc_client

@@ -8,7 +8,7 @@ import { Consts } from '../../constants';
 import type { i18n, ResourceLanguage, TFunction, TOptions } from 'i18next';
 import i18next from 'i18next';
 
-const _translationPath = path.join(__dirname, '../../../../resources/i18n/');
+const _translationPath = path.join(__dirname, '../../../resources/i18n/');
 
 interface I18nOptions {
     namespace: string;

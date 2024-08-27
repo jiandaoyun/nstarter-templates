@@ -12,7 +12,7 @@ coverage/
 
 *.tgz
 
-resources/
+resources/*.json
 
 ## IDE
 *.code-workspace

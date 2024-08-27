@@ -10,7 +10,8 @@
     "eslint": "eslint --ext .js,.ts ./src",
     "eslint:html": "npm run eslint -- --output-file ./lint/eslint.html --format html",
     "circular": "nstarter-circular ./src",
-    "json-schema": "typescript-json-schema \"./src/entities/**/*.ts\" \"*\" --out ../resources/entities.schema.json --required --excludePrivate --ignoreErrors --noExtraProps",
-    "tool:i18n-scan": "ts-node ./tools/i18n_scan.ts"
+    "json-schema": "typescript-json-schema \"./src/entities/**/*.ts\" \"*\" --out ./resources/entities.schema.json --required --excludePrivate --ignoreErrors --noExtraProps",
+    "tool:i18n-scan": "ts-node ./tools/i18n_scan.ts",
+    "tool:schema_check": "ts-node ./tools/schema_check.ts"
   }
 }
