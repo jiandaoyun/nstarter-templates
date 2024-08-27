@@ -49,6 +49,7 @@ export class DemoController {
         // const { body } = req;
         const context = ContextProvider.getContext();
         pingService.ping();
+        pingService.moduleFoo();
         return res.json({
             'msg': 'pong',
             'traceId': context?.traceId

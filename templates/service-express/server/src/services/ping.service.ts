@@ -1,5 +1,6 @@
 import type { PongService } from './pong.service';
 import { injectService, service } from 'nstarter-core';
+import { foo } from 'ns-module';
 
 @service()
 export class PingService {
@@ -12,5 +13,9 @@ export class PingService {
 
     public pong () {
         this.pongService.pong();
+    }
+
+    public moduleFoo() {
+        console.log(foo());
     }
 }
