@@ -14,7 +14,10 @@ else
 endif
 
 docker-compile:
-	docker build --target compile .
+	docker buildx build --target compile \
+		--progress=plain \
+		--file ci/Dockerfile \
+		.
 
 docker-test:
 	docker buildx build --target=test-report \
