@@ -2,6 +2,9 @@
 
 ## 3.0.0
 
+* 工程结构调整为 monorepo 形式
+  - 拆分 `server` , `modules/*` 工作目录
+
 * 基础环境升级
     - 升级 Node.js >= 20.16.0
     - 升级 TypeScript -> 5.5.4
