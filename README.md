@@ -7,7 +7,9 @@
 - `service-express` - 基于 Express.js 的服务工程模板
   - TypeScript + Express.js
   - 采用 monorepo 形式管理，支持多模块工程组织
-
+- `npm-package` - 通用 npm 包工程模板
+  - TypeScript
+  - 适用于开发通用 npm 包
 
 ## 模板工程
 
