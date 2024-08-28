@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "cache": true
+    },
+    "eslint": {
+      "outputs": [],
+      "cache": true
+    },
+    "eslint:html": {
+      "outputs": [
+        "{projectRoot}/lint"
+      ],
+      "cache": true
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "{projectRoot}/coverage"
+      ],
+      "cache": true
+    }
+  },
+  "defaultBase": "dev"
+}

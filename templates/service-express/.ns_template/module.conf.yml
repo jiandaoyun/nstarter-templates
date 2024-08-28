@@ -1,0 +1,261 @@
+# Project template module description file
+#
+# modules:
+#   - storage
+#   |- mongodb
+#   |- redis
+#   - components
+#   |- web
+#   |- ws_server
+#   |- ws_emitter
+#   |- rabbitmq
+#   |- cron
+#   |- grpc
+#   |- i18n
+#   - devops
+#   |- monitor
+#   |- graylog
+#   |- sentry
+#   |- apm
+#   - utils
+#   |- util_request
+#   `- util_moment
+
+modules:
+  - name: mongodb
+    label: Mongodb
+    type: storage
+    default: true
+    files:
+      - server/src/components/mongodb.component.ts
+      - server/src/models/**
+      - server/src/repositories/**
+      - server/src/cache/**
+      - server/src/services/user.service.ts
+      - server/src/types/models/**
+      - server/test/server/repositories/**
+    config:
+      - storage.mongodb
+    packages:
+      - nstarter-mongodb
+      - mongoose
+
+  - name: redis
+    label: Redis
+    type: storage
+    default: true
+    files:
+      - server/src/components/redis.component.ts
+      - server/src/components/lib/database/redis.connection.ts
+    config:
+      - storage.redis
+    packages:
+      - connect-redis
+      - ioredis
+      - '@types/ioredis'
+
+  - name: rabbitmq
+    label: Message Queue (Rabbitmq)
+    type: components
+    default: false
+    files:
+      - server/src/components/rabbitmq.component.ts
+      - server/src/components/lib/database/amqp.connection.ts
+      - server/src/components/monitor/metrics/queue_count.metric.ts
+      - server/src/components/monitor/metrics/queue_time.metric.ts
+      - server/src/components/monitor/metrics/queue_time_histo.metric.ts
+      - server/src/constants/queue.ts
+      - server/src/services/queue.service/**
+    config:
+      - components.rabbitmq
+    packages:
+      - nstarter-rabbitmq
+
+  - name: web
+    label: Web HTTP Service
+    type: components
+    default: true
+    files:
+      - web/views/**
+      - web/public/**
+      - server/src/routes/**
+      - server/src/controllers/**
+      - server/typings/express/**
+    packages:
+      - pug
+      - express
+      - express-session
+      - helmet
+      - nocache
+      - '@types/express'
+      - '@types/express-session'
+
+  - name: ws_server
+    label: Websocket Server
+    type: components
+    default: false
+    files:
+      - server/src/components/ws_server.component.ts
+      - server/src/components/lib/websocket/**
+    dependencies:
+      - redis
+      - web
+    packages:
+      - socket.io
+      - '@socket.io/redis-adapter'
+      - '@socket.io/redis-emitter'
+
+  - name: ws_emitter
+    label: Websocket Emitter
+    type: components
+    default: false
+    files:
+      - server/src/components/ws_emitter.component.ts
+    dependencies:
+      - redis
+    packages:
+      - '@socket.io/redis-emitter'
+
+  - name: cron
+    label: Cron Job
+    type: components
+    default: false
+    files:
+      - server/src/services/cron.service/**
+    packages:
+      - cron
+      - '@types/cron'
+
+  - name: i18n
+    label: i18n
+    type: components
+    default: true
+    files:
+      - server/src/components/i18n.component.ts
+      - server/src/components/lib/i18n.ts
+      - server/typings/i18next-conv/**
+      - server/typings/i18next-scanner/**
+      - resources/i18n/**
+      - server/tools/i18n_scan.js
+    packages:
+      - i18next
+      - i18next-conv
+      - i18next-scanner
+      - '@types/i18next'
+    config:
+      - system.locale
+    scripts:
+      - tool:i18n-scan
+
+  - name: grpc_server
+    label: gRPC Server
+    type: components
+    files:
+      - server/src/components/grpc_server.component.ts
+      - server/src/components/lib/grpc/**
+      - server/src/services/grpc.service/handler/**
+      - server/src/services/grpc.service/types/**
+      - resources/grpc/**
+    packages:
+      - nstarter-grpc
+    config:
+      - components.grpc.server
+
+  - name: grpc_client
+    label: gRPC Client
+    type: components
+    files:
+      - server/src/components/grpc_client.component.ts
+      - server/src/components/lib/grpc/**
+      - server/src/services/grpc.service/client/**
+      - server/src/services/grpc.service/types/**
+      - resources/grpc/**
+    packages:
+      - nstarter-grpc
+    config:
+      - components.grpc.clients
+
+  - name: graylog
+    label: Graylog (Logging)
+    type: devops
+    config:
+      - system.log.graylog
+    packages:
+      - 'winston-graylog2'
+
+  - name: loki
+    label: Grafana Loki (Logging)
+    type: devops
+    config:
+      - system.log.loki
+    packages:
+      - 'winston-loki'
+
+  - name: sentry
+    label: Sentry (Error tracking)
+    type: devops
+    files:
+      - server/src/components/lib/logger/transports/sentry.transport.ts
+    config:
+      - system.log.sentry
+    packages:
+      - '@sentry/node'
+
+  - name: monitor
+    label: Performance monitor(Prometheus)
+    type: devops
+    files:
+      - server/src/components/monitor.component.ts
+      - server/src/components/lib/monitor/**
+    conifg:
+      - system.monitor
+    package:
+      - nstarter-metrics
+
+  - name: apm
+    label: Elastic APM
+    type: devops
+    files:
+      - server/src/apm.ts
+    package:
+      - nstarter-apm
+
+  - name: util_axios
+    label: 'npm: axios'
+    type: utils
+    default: true
+    packages:
+      - axios
+
+  - name: util_moment
+    label: 'npm: moment & moment-timezone'
+    type: utils
+    default: true
+    packages:
+      - moment
+      - moment-timezone'
+      - '@types/moment-timezone'
+
+module_types:
+  - name: storage
+    label: Data Storage
+  - name: components
+    label: components
+  - name: devops
+    label: DevOps Tools
+  - name: utils
+    label: Utility packages
+
+ignore_files:
+  - .git/**
+  - .idea/**
+  - .vscode/**
+  - .nyc_output/**
+  - .ns_template/**
+  - dist/**
+  - log/**
+  - lint/**
+  - coverage/**
+  - node_modules/**
+  - package-lock.json
+  - module.conf.yml

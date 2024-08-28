@@ -1,9 +1,13 @@
 {
-    "name": "nstarter-ts-express",
-    "version": "2.0.1",
-    "description": "基于 express 框架的 nstarter 模板工程",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jiandaoyun/nstarter-ts-express"
-    }
+  "name": "nstarter-templates",
+  "version": "3.0.0",
+  "description": "nstarter 模板工程",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiandaoyun/nstarter-template.git"
+  },
+  "workspaces": [
+    "templates/*",
+    "templates/*/modules/*"
+  ]
 }
