@@ -1,5 +1,7 @@
 import _ from 'lodash';
+//#module grpc_server|grpc_client
 import path from 'path';
+//#endmodule grpc_server|grpc_client
 import { Logger, RequestLogger, ContextProvider } from 'nstarter-core';
 import { defaultTransports, reqMetaFormatter, requestTransports } from './lib/logger';
 import { Context } from '../context';

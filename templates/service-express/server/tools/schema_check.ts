@@ -19,7 +19,7 @@ const searchEntityFiles = async () => {
         dot: true,
         ignore: []
     });
-}
+};
 
 /**
  * 生成文件内容 hash
