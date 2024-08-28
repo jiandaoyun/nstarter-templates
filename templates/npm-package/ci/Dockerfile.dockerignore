@@ -1,0 +1,27 @@
+/node_modules/
+
+## CI
+/dist/
+/log/
+/build/
+/lint/
+
+.nyc_output/
+coverage/
+
+*.tgz
+
+/ci/
+Makefile
+
+## IDE
+*.code-workspace
+.vscode/
+.idea/
+
+.git/
+
+## OS
+.DS_Store
+
+.ns_template/

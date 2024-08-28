@@ -1,0 +1,41 @@
+{
+  "name": "nstarter-package",
+  "version": "0.0.0",
+  "description": "nstarter Package",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": "./dist",
+  "types": "./dist",
+  "scripts": {
+    "build": "rimraf dist && tsc --build tsconfig.json && tsc --build tsconfig.esm.json",
+    "test": "nyc mocha --config .mocharc.yml",
+    "eslint": "eslint --ext .js,.ts --config .eslintrc.js ./src",
+    "eslint:html": "npm run eslint -- --output-file ./lint/eslint.html --format html",
+    "clean": "rimraf dist && rimraf lint && rimraf coverage && rimraf .nyc_output"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "nstarter-core": ">=1.2.0 <2.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.16",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^20.14.8",
+    "chai": "^4.4.1",
+    "eslint": "^8.56.0",
+    "eslint-config-nstarter": "^4.0.1",
+    "mocha": "^10.7.0",
+    "nstarter-core": "^1.2.0",
+    "nstarter-tsconfig": "^0.5.0",
+    "nyc": "^17.0.0",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.5.4"
+  },
+  "engine": {
+    "node": ">=20.16.0"
+  }
+}
