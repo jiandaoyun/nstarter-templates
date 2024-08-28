@@ -1,0 +1,26 @@
+# Project template module description file
+#
+# modules:
+#   - framework
+#   `- nstarter-core
+
+modules:
+  - name: nstarter-core
+    label: nstarter-core
+    type: framework
+    default: true
+    packages:
+      - nstarter-core
+
+ignore_files:
+  - .git/**
+  - .idea/**
+  - .vscode/**
+  - .nyc_output/**
+  - dist/**
+  - log/**
+  - lint/**
+  - coverage/**
+  - node_modules/**
+  - package-lock.json
+  - module.conf.yml
