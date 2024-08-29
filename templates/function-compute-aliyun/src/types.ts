@@ -1,5 +1,5 @@
-import { EventEmitter } from "events";
-import { Readable } from "stream";
+import type { EventEmitter } from "events";
+import type { Readable } from "stream";
 
 /**
  * 阿里云 Serverless Http 上下文
@@ -48,20 +48,20 @@ export interface AliyunServerlessHttpRequest extends Readable {
  * 阿里云 Serverless Http 响应
  */
 export interface AliyunServerlessHttpResponse {
-    setStatusCode(
+    setStatusCode: (
         statusCode: number
-    ): void;
+    ) => void;
 
-    setHeader(
+    setHeader: (
         headerKey: string,
         headerValue: string
-    ): void;
+    ) => void;
 
-    deleteHeader(
+    deleteHeader: (
         headerKey: string
-    ): void;
+    ) => void;
 
-    send(
+    send: (
         body: string | Buffer | Readable
-    ): void;
+    ) => void;
 }

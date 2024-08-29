@@ -1,6 +1,6 @@
 {
-    "extends": "nstarter-tsconfig",
-    "compilerOptions": {
-        "sourceMap": false
-    }
+  "extends": "nstarter-tsconfig",
+  "compilerOptions": {
+    "sourceMap": false
+  }
 }

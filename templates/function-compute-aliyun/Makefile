@@ -1,5 +1,11 @@
+docker-build:
+	docker buildx build --target=artifacts \
+		--progress=plain \
+		--file ci/Dockerfile \
+		-o dist\
+		.
+
 deploy:
-	npm run build
 	fun install
 	fun build
 	fun deploy -y

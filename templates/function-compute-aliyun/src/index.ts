@@ -1,4 +1,4 @@
-import { AliyunServerlessHttpContext, AliyunServerlessHttpRequest, AliyunServerlessHttpResponse } from './types';
+import type { AliyunServerlessHttpContext, AliyunServerlessHttpRequest, AliyunServerlessHttpResponse } from './types';
 import getRawBody from 'raw-body';
 
 
@@ -22,7 +22,9 @@ export async function run(
         }));
 
         // todo 实现函数计算业务过程逻辑
-        const responseBody = {}
+        const responseBody = {
+            ...body
+        };
 
         res.setStatusCode(200);
         res.setHeader('content-type', 'application/json');
@@ -30,7 +32,7 @@ export async function run(
             ...responseBody,
             aliyun_function_req_id: context.requestId
         }));
-    } catch (e) {
+    } catch (e: any) {
         res.setStatusCode(400);
         res.setHeader('content-type', 'application/json');
         return res.send(JSON.stringify({

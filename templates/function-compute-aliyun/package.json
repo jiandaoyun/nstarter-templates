@@ -1,20 +1,19 @@
 {
-    "name": "fun-app",
-    "private": true,
-    "scripts": {
-        "compile": "tsc --build tsconfig.json",
-        "build": "rimraf dist && npm run compile",
-        "start": "fun local start",
-        "lint": "eslint --config .eslintrc.js --ext .ts --quiet ./src"
-    },
-    "dependencies": {
-        "raw-body": "2.4.1"
-    },
-    "devDependencies": {
-        "@types/node": "12.12.54",
-        "eslint": "7.6.0",
-        "eslint-config-nstarter": "1.0.6",
-        "nstarter-tsconfig": "0.2.0",
-        "typescript": "3.8.3"
-    }
+  "name": "fun-app",
+  "private": true,
+  "scripts": {
+    "build": "rimraf ./dist && tsc --build tsconfig.json",
+    "start": "fun local start",
+    "eslint": "eslint --config .eslintrc.js --ext .ts --quiet ./src"
+  },
+  "dependencies": {
+    "raw-body": "2.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "eslint": "^8.56.0",
+    "eslint-config-nstarter": "^4.0.1",
+    "nstarter-tsconfig": "0.5.0",
+    "typescript": "5.5.4"
+  }
 }

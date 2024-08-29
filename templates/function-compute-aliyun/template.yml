@@ -20,7 +20,7 @@ Resources:
       Type: 'Aliyun::Serverless::Function'
       Properties:
         Handler: dist/index.run
-        Runtime: nodejs12
+        Runtime: nodejs20
         CodeUri: ./
         Timeout: 20
         MemorySize: 1024

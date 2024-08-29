@@ -1,19 +1,21 @@
-/node_modules/
-/dist/
-/build/
-/lint/
-
-/log/
-
+node_modules/
 package-lock.json
-config.schema.json
 
-.nyc_output/
+## CI
+dist/
+log/
+lint/
+build/
+
 coverage/
+.nyc_output/
 
+## IDE
+*.code-workspace
 .vscode/
 .idea/
 
+## Function Compute
 .fun/
 .fcli/
 .env
