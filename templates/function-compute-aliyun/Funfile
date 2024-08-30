@@ -1,0 +1,3 @@
+RUNTIME nodejs20
+COPY ./package.json ./.npmrc ./
+RUN npm install --omit=dev

@@ -1,0 +1,22 @@
+# Project template module description file
+modules:
+
+module_types:
+
+ignore_files:
+  - .git/**
+  - .idea/**
+  - .vscode/**
+  - .nyc_output/**
+  - dist/**
+  - log/**
+  - lint/**
+  - coverage/**
+  - node_modules/**
+  - conf.d/config.override.*
+  - package-lock.json
+  - module.conf.yml
+  - .fun/**
+  - .fcli/**
+  - .env
+  - .Funfile.generated.dockerfile

@@ -1,0 +1,19 @@
+{
+  "name": "fun-app",
+  "private": true,
+  "scripts": {
+    "build": "rimraf ./dist && tsc --build tsconfig.json",
+    "start": "fun local start",
+    "eslint": "eslint --config .eslintrc.js --ext .ts --quiet ./src"
+  },
+  "dependencies": {
+    "raw-body": "2.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "eslint": "^8.56.0",
+    "eslint-config-nstarter": "^4.0.1",
+    "nstarter-tsconfig": "0.5.0",
+    "typescript": "5.5.4"
+  }
+}
