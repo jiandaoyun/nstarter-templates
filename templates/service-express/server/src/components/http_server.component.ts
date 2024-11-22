@@ -29,6 +29,7 @@ import type { MonitorComponent } from './monitor.component';
 
 //#module web
 import { config } from '../config';
+import { Consts } from '../constants';
 import { router, securityMiddlewares } from '../routes';
 import { ErrorHandler } from '../routes/middlewares/error.handler';
 //#endmodule web
@@ -171,7 +172,20 @@ export class HttpServerComponent extends BaseComponent {
     }
 
     public async shutdown() {
-        Logger.info('web server shutting down');
-        this._server.close();
+        Logger.info('web server shutting down.');
+        await new Promise<void>((resolve) => {
+            // 停止新建连接
+            this._server.close(() => {
+                Logger.info('web server closed successfully.');
+                return resolve();
+            });
+            // @see https://nodejs.org/api/http.html#servercloseidleconnections
+            this._server.closeAllConnections();
+            // 超时强制关闭
+            setTimeout(() => {
+                Logger.warn('web server force terminated.');
+                return resolve();
+            }, Consts.System.HTTP_SHUTDOWN_MS);
+        });
     }
 }

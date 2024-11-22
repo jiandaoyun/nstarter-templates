@@ -1,4 +1,5 @@
 import { Logger } from 'nstarter-core';
+import { sleep } from 'nstarter-utils';
 import './schema';
 //#module apm
 import { apmConnector } from 'nstarter-apm';
@@ -37,7 +38,6 @@ import { startQueueProducer, loadQueueConsumers } from './services/queue.service
 //#module cron
 import { startCronJobs } from './services/cron.service';
 //#endmodule cron
-import { CommonUtils } from './utils';
 import { Consts } from './constants';
 
 process.on('uncaughtException', (err) => {
@@ -66,7 +66,7 @@ class AppManager {
         monitorComponent.setShutdownState();
         //#endmodule monitor
         // 等待 readinessProbe 进入 fail 状态
-        await CommonUtils.sleep(Consts.System.SHUTDOWN_WAIT_MS);
+        await sleep(Consts.System.SHUTDOWN_WAIT_MS);
         try {
             // 按顺序停止服务
             //#module web
@@ -90,6 +90,8 @@ class AppManager {
         } catch (err: any) {
             Logger.error(err);
         } finally {
+            // 等待日志记录
+            sleep(1000);
             process.exit(0);
         }
     }

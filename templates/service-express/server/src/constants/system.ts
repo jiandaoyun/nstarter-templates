@@ -8,5 +8,10 @@ export const DEFAULT_LOG_ROTATE_DAYS = 14;
 export const WS_MSG_ROOM_KEY = 'ws_msg:';
 //#endmodule ws_server|ws_emitter
 
-// 进程安全退出等待时间
+// Time to wait before starting shutdown
 export const SHUTDOWN_WAIT_MS = 10000;
+
+//#module web
+// Time to wait before force shutdown http server
+export const HTTP_SHUTDOWN_MS = 20000;
+//#endmodule web
