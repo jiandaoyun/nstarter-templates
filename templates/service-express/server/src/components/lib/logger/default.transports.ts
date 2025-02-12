@@ -10,6 +10,10 @@ import Graylog2Transport from 'winston-graylog2';
 //#module sentry
 import { SentryTransport } from './transports';
 //#endmodule sentry
+//#module otel
+import { OpenTelemetryTransportV3 } from '@opentelemetry/winston-transport';
+import { getOTelTransportFormat } from './otel';
+//#endmodule otel
 
 import { config } from '../../../config';
 import { Consts } from '../../../constants';
@@ -122,3 +126,15 @@ if (sentryConf?.enabled && sentryConf.dsn) {
     }));
 }
 //#endmodule sentry
+
+//#module otel
+const otelConf = config.system.log.open_telemetry;
+if (otelConf?.enabled) {
+    defaultTransports.push(
+        new OpenTelemetryTransportV3({
+            level: otelConf.level,
+            format: getOTelTransportFormat('log')
+        })
+    );
+}
+//#endmodule otel

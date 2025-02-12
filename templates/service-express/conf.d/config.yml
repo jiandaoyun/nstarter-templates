@@ -56,6 +56,11 @@ system:
       enabled: false
       level: 'warn'
       dsn: ''
+    open_telemetry:
+      enabled: false
+      level: 'info'
+      endpoint: 'http://localhost:4318/v1/logs'
+      token: ''
   req_log:
     enabled: true
   monitor:

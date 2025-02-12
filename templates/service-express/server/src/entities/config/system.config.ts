@@ -75,6 +75,16 @@ interface ISentryConf extends ILogConf {
 }
 //#endmodule sentry
 
+//#module otel
+interface IOpenTelemetryConf extends ILogConf {
+    // 日志跟踪地址
+    readonly endpoint: string;
+
+    // 鉴权 token
+    readonly token?: string;
+}
+//#endmodule otel
+
 export interface ISystemConf {
     //#module i18n
     readonly locale: string;
@@ -90,8 +100,11 @@ export interface ISystemConf {
         readonly loki?: ILokiConf,
         //#endmodule loki
         //#module sentry
-        readonly sentry?: ISentryConf
+        readonly sentry?: ISentryConf,
         //#endmodule sentry
+        //#module otel
+        readonly open_telemetry?: IOpenTelemetryConf
+        //#endmodule otel
     };
     readonly req_log: {
         readonly enabled: boolean
