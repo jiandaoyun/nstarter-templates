@@ -8,6 +8,10 @@ import Graylog2Transport from 'winston-graylog2';
 //#module loki
 import LokiTransport from 'winston-loki';
 //#endmodule loki
+//#module otel
+import { OpenTelemetryTransportV3 } from '@opentelemetry/winston-transport';
+import { getOTelTransportFormat } from './otel';
+//#endmodule otel
 
 import { config } from '../../../config';
 import { Consts } from '../../../constants';
@@ -111,3 +115,15 @@ if (lokiConf?.enabled) {
     }) as Transport);
 }
 //#endmodule loki
+
+//#module otel
+const otelConf = config.system.log.open_telemetry;
+if (otelConf?.enabled) {
+    requestTransports.push(
+        new OpenTelemetryTransportV3({
+            level: otelConf.level,
+            format: getOTelTransportFormat('request')
+        })
+    );
+}
+//#endmodule otel

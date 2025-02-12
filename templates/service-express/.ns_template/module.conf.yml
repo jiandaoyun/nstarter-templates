@@ -16,6 +16,7 @@
 #   |- monitor
 #   |- graylog
 #   |- sentry
+#   |- otel
 #   |- apm
 #   - utils
 #   |- util_request
@@ -200,6 +201,19 @@ modules:
       - system.log.sentry
     packages:
       - '@sentry/node'
+
+  - name: otel
+    label: OpenTelemetry (Logging)
+    type: devops
+    files:
+      - server/src/components/lib/logger/otel.ts
+    config:
+      - system.log.open_telemetry
+    packages:
+      - '@opentelemetry/api-logs'
+      - '@opentelemetry/exporter-logs-otlp-http'
+      - '@opentelemetry/sdk-logs'
+      - '@opentelemetry/winston-transport'
 
   - name: monitor
     label: Performance monitor(Prometheus)

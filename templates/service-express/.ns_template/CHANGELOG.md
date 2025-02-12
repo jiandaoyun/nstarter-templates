@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0
+
+* feat: 引入 OpenTelemetry 日志记录模块 
+
+
 ## 3.0.0
 
 * 工程结构调整为 monorepo 形式
