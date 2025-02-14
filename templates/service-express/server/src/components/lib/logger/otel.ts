@@ -7,6 +7,7 @@ import * as logsAPI from '@opentelemetry/api-logs';
 import { format } from 'winston';
 
 import { config } from '../../../config';
+import { ContextProvider } from 'nstarter-core';
 
 const otelConf = config.system.log.open_telemetry;
 
@@ -40,6 +41,7 @@ const getOTelTransportFormat = (logger: string) => {
     return format.combine(
         // @see https://opentelemetry.io/docs/specs/otel/logs/data-model/
         format((info) => {
+            const context = ContextProvider.getContext();
             info.logger = logger;
             info.hostname = config.hostname;
             info.service_name = 'ns-app';
@@ -47,6 +49,9 @@ const getOTelTransportFormat = (logger: string) => {
                 env: config.env,
                 version: config.version
             };
+            if (context) {
+                info.trace_id = context.traceId;
+            }
             return info;
         })(),
         format.json()
