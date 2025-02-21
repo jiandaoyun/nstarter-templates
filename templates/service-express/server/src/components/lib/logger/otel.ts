@@ -3,6 +3,8 @@ import {
     BatchLogRecordProcessor,
 } from '@opentelemetry/sdk-logs';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
+import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
+import { Resource } from '@opentelemetry/resources';
 import * as logsAPI from '@opentelemetry/api-logs';
 import { format } from 'winston';
 
@@ -24,7 +26,9 @@ if (otelConf?.enabled) {
         };
     }
     const logExporter = new OTLPLogExporter(collectorOptions);
-    const loggerProvider = new LoggerProvider();
+    const loggerProvider = new LoggerProvider({
+        resource: Resource.empty()
+    });
     loggerProvider.addLogRecordProcessor(
         new BatchLogRecordProcessor(logExporter)
     );
@@ -44,7 +48,7 @@ const getOTelTransportFormat = (logger: string) => {
             const context = ContextProvider.getContext();
             info.logger = logger;
             info.hostname = config.hostname;
-            info.service_name = 'ns-app';
+            info[ATTR_SERVICE_NAME] = 'ns-app';
             info.service = {
                 env: config.env,
                 version: config.version
