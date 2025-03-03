@@ -180,7 +180,7 @@ export class HttpServerComponent extends BaseComponent {
                 return resolve();
             });
             // @see https://nodejs.org/api/http.html#servercloseidleconnections
-            this._server.closeAllConnections();
+            this._server.closeIdleConnections();
             // 超时强制关闭
             setTimeout(() => {
                 Logger.warn('web server force terminated.');
