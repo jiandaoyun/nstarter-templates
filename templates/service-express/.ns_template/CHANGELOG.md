@@ -3,6 +3,7 @@
 ## 3.1.0
 
 * feat: 引入 OpenTelemetry 日志记录模块 
+  - 移除 graylog, loki 原生 SDK，统一使用 otel 标准
 
 
 ## 3.0.0

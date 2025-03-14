@@ -100,7 +100,9 @@ const runScanner = async () => {
         _.forEach(_.keys(items).sort(), (key) => {
             sorted[key] = items[key];
         });
-        const i18nTemplate = await i18nextToPot('en', JSON.stringify(sorted));
+        const i18nTemplate = await i18nextToPot('en', JSON.stringify(sorted), {
+            ctxSeparator: false
+        });
         fs.writeFileSync(config.output, i18nTemplate);
         return process.exit(0);
     } catch (err: any) {
