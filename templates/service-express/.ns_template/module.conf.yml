@@ -176,22 +176,6 @@ modules:
     config:
       - components.grpc.clients
 
-  - name: graylog
-    label: Graylog (Logging)
-    type: devops
-    config:
-      - system.log.graylog
-    packages:
-      - 'winston-graylog2'
-
-  - name: loki
-    label: Grafana Loki (Logging)
-    type: devops
-    config:
-      - system.log.loki
-    packages:
-      - 'winston-loki'
-
   - name: sentry
     label: Sentry (Error tracking)
     type: devops

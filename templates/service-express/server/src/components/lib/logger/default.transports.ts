@@ -4,9 +4,6 @@ import winston, { format } from 'winston';
 import type Transport from 'winston-transport';
 import RotateFileTransport from 'winston-daily-rotate-file';
 import { LogLevel } from 'nstarter-core';
-//#module graylog
-import Graylog2Transport from 'winston-graylog2';
-//#endmodule graylog
 //#module sentry
 import { SentryTransport } from './transports';
 //#endmodule sentry
@@ -96,25 +93,6 @@ if (fileLogConf?.enabled) {
         )
     }));
 }
-
-//#module graylog
-// graylog transport
-const { graylog: graylogConf } = config.system.log;
-if (graylogConf?.enabled && !_.isEmpty(graylogConf.servers)) {
-    defaultTransports.push(new Graylog2Transport({
-        level: graylogConf.level,
-        graylog: {
-            servers: graylogConf.servers,
-            hostname: config.hostname
-        },
-        staticMeta: {
-            type: 'log',
-            env: config.env,
-            version: config.version
-        }
-    }) as Transport);
-}
-//#endmodule graylog
 
 //#module sentry
 // sentry transport
