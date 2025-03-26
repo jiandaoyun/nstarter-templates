@@ -51,6 +51,11 @@ system:
       token: ''
   req_log:
     enabled: true
+  trace:
+    open_telemetry:
+      enabled: false
+      endpoint: 'http://localhost:4318/v1/traces'
+      token: ''
   monitor:
     port: 3100
   trusted_proxy: []

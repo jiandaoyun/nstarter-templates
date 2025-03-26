@@ -16,8 +16,8 @@
 #   |- monitor
 #   |- graylog
 #   |- sentry
-#   |- otel
-#   |- apm
+#   |- otel_log
+#   |- otel_trace
 #   - utils
 #   |- util_request
 #   `- util_moment
@@ -186,7 +186,7 @@ modules:
     packages:
       - '@sentry/node'
 
-  - name: otel
+  - name: otel_log
     label: OpenTelemetry (Logging)
     type: devops
     files:
@@ -195,9 +195,24 @@ modules:
       - system.log.open_telemetry
     packages:
       - '@opentelemetry/api-logs'
-      - '@opentelemetry/exporter-logs-otlp-http'
+      - '@opentelemetry/exporter-logs-otlp-proto'
+      - '@opentelemetry/resources'
       - '@opentelemetry/sdk-logs'
       - '@opentelemetry/winston-transport'
+
+  - name: otel_trace
+    label: OpenTelemetry (Tracing)
+    type: devops
+    files:
+      - server/src/trace.ts
+    config:
+      - system.trace.open_telemetry
+    packages:
+      - '@opentelemetry/auto-instrumentations-node'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/instrumentation'
+      - '@opentelemetry/resources'
+      - 'nstarter-otel-trace'
 
   - name: monitor
     label: Performance monitor(Prometheus)
@@ -209,14 +224,6 @@ modules:
       - system.monitor
     package:
       - nstarter-metrics
-
-  - name: apm
-    label: Elastic APM
-    type: devops
-    files:
-      - server/src/apm.ts
-    package:
-      - nstarter-apm
 
   - name: util_axios
     label: 'npm: axios'

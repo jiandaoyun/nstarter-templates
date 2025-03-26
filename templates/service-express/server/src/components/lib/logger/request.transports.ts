@@ -2,10 +2,10 @@ import _ from 'lodash';
 import winston, { format } from 'winston';
 import type Transport from 'winston-transport';
 import RotateFileTransport from 'winston-daily-rotate-file';
-//#module otel
+//#module otel_log
 import { OpenTelemetryTransportV3 } from '@opentelemetry/winston-transport';
 import { getOTelTransportFormat } from './otel';
-//#endmodule otel
+//#endmodule otel_log
 
 import { config } from '../../../config';
 import { Consts } from '../../../constants';
@@ -53,7 +53,7 @@ if (fileLogConf?.enabled) {
     }));
 }
 
-//#module otel
+//#module otel_log
 const otelConf = config.system.log.open_telemetry;
 if (otelConf?.enabled) {
     requestTransports.push(
@@ -63,4 +63,4 @@ if (otelConf?.enabled) {
         })
     );
 }
-//#endmodule otel
+//#endmodule otel_log

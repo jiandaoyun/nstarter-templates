@@ -7,10 +7,10 @@ import { LogLevel } from 'nstarter-core';
 //#module sentry
 import { SentryTransport } from './transports';
 //#endmodule sentry
-//#module otel
+//#module otel_log
 import { OpenTelemetryTransportV3 } from '@opentelemetry/winston-transport';
 import { getOTelTransportFormat } from './otel';
-//#endmodule otel
+//#endmodule otel_log
 
 import { config } from '../../../config';
 import { Consts } from '../../../constants';
@@ -105,7 +105,7 @@ if (sentryConf?.enabled && sentryConf.dsn) {
 }
 //#endmodule sentry
 
-//#module otel
+//#module otel_log
 const otelConf = config.system.log.open_telemetry;
 if (otelConf?.enabled) {
     defaultTransports.push(
@@ -115,4 +115,4 @@ if (otelConf?.enabled) {
         })
     );
 }
-//#endmodule otel
+//#endmodule otel_log
