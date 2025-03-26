@@ -1,40 +1,40 @@
-import {
-    LoggerProvider,
-    BatchLogRecordProcessor,
-} from '@opentelemetry/sdk-logs';
-import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
-import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
-import { Resource } from '@opentelemetry/resources';
-import * as logsAPI from '@opentelemetry/api-logs';
+import { BatchLogRecordProcessor, LoggerProvider } from '@opentelemetry/sdk-logs';
+import { logs } from '@opentelemetry/api-logs';
+import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-proto';
+import { resourceFromAttributes } from '@opentelemetry/resources';
+import { ATTR_SERVICE_VERSION, ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
+import { ATTR_HOST_NAME } from '@opentelemetry/semantic-conventions/incubating';
 import { format } from 'winston';
-
-import { config } from '../../../config';
 import { ContextProvider } from 'nstarter-core';
 
+import { config } from '../../../config';
+import { pkg } from '../../../pkg';
+
+// OpenTelemetry 日志跟踪配置
 const otelConf = config.system.log.open_telemetry;
+const loggerProvider = new LoggerProvider({
+    resource: resourceFromAttributes({
+        [ATTR_SERVICE_NAME]: pkg.name,
+        [ATTR_SERVICE_VERSION]: config.version,
+        [ATTR_HOST_NAME]: config.hostname,
+        'service_env': config.env
+    })
+});
+loggerProvider.addLogRecordProcessor(
+    new BatchLogRecordProcessor(
+        new OTLPLogExporter({
+            url: otelConf?.endpoint,
+            headers: otelConf?.token ? {
+                'Authorization': `Basic ${ otelConf.token }`
+            }: {},
+            concurrencyLimit: 1,
+        })
+    )
+);
 
 if (otelConf?.enabled) {
-    // OpenTelemetry 日志跟踪配置
-    const collectorOptions = {
-        url: otelConf?.endpoint,
-        headers: {},
-        concurrencyLimit: 1,
-    };
-    if (otelConf?.token) {
-        collectorOptions.headers = {
-            'Authorization': `Basic ${ otelConf.token }`
-        };
-    }
-    const logExporter = new OTLPLogExporter(collectorOptions);
-    const loggerProvider = new LoggerProvider({
-        resource: Resource.empty()
-    });
-    loggerProvider.addLogRecordProcessor(
-        new BatchLogRecordProcessor(logExporter)
-    );
-
     // 全局注册
-    logsAPI.logs.setGlobalLoggerProvider(loggerProvider);
+    logs.setGlobalLoggerProvider(loggerProvider);
 }
 
 /**
@@ -42,24 +42,14 @@ if (otelConf?.enabled) {
  * @param logger - 日志类型
  */
 const getOTelTransportFormat = (logger: string) => {
-    return format.combine(
-        // @see https://opentelemetry.io/docs/specs/otel/logs/data-model/
-        format((info) => {
-            const context = ContextProvider.getContext();
-            info.logger = logger;
-            info.hostname = config.hostname;
-            info[ATTR_SERVICE_NAME] = 'ns-app';
-            info.service = {
-                env: config.env,
-                version: config.version
-            };
-            if (context) {
-                info.trace_id = context.traceId;
-            }
-            return info;
-        })(),
-        format.json()
-    );
+    return format((info) => {
+        info.logger = logger;
+        const context = ContextProvider.getContext();
+        if (context) {
+            info.ctx_trace_id = context.traceId;
+        }
+        return info;
+    })();
 };
 
 export { getOTelTransportFormat };

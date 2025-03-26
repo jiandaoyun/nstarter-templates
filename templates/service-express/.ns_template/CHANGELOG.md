@@ -4,6 +4,8 @@
 
 * feat: 引入 OpenTelemetry 日志记录模块 
   - 移除 graylog, loki 原生 SDK，统一使用 otel 标准
+- feat: 引入 OpenTelemetry 链路跟踪模块
+  - 取代基于 ElasticAPM 的 nstarter-apm 组件 
 
 
 ## 3.0.0

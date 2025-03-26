@@ -1,10 +1,9 @@
 import { Logger } from 'nstarter-core';
 import { sleep } from 'nstarter-utils';
 import './schema';
-//#module apm
-import { apmConnector } from 'nstarter-apm';
-import { apm } from './apm';
-//#endmodule apm
+//#module otel_trace
+import { trace } from './trace';
+//#endmodule otel_trace
 import {
     //#module mongodb
     mongodbComponent,
@@ -39,6 +38,7 @@ import { startQueueProducer, loadQueueConsumers } from './services/queue.service
 import { startCronJobs } from './services/cron.service';
 //#endmodule cron
 import { Consts } from './constants';
+import { config } from './config';
 
 process.on('uncaughtException', (err) => {
     Logger.error(err);
@@ -106,10 +106,11 @@ class AppManager {
     }
 
     public static async start() {
-        //#module apm
-        apm.isStarted();
-        apmConnector.setApmAgent(apm);
-        //#endmodule apm
+        //#module otel_trace
+        if (config.system.trace.open_telemetry?.enabled) {
+            trace.start();
+        }
+        //#endmodule otel_trace
 
         // 基础组件
         //#module mongodb

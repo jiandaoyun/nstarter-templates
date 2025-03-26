@@ -48,7 +48,7 @@ export class DemoController {
     public async doPing(req: Request, res: Response) {
         // const { body } = req;
         const context = ContextProvider.getContext();
-        pingService.ping();
+        await pingService.ping();
         pingService.moduleFoo();
         return res.json({
             'msg': 'pong',
