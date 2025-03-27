@@ -17,6 +17,8 @@ export class WsServerComponent extends BaseComponent {
 
     public async init() {
         if (!this._server) {
+            // 等待redis ready.
+            await this._redisComponent.waitForReady();
             const redis = this._redisComponent.redis,
                 httpServer = this._httpServerComponent.server;
             this._server = WebSocket.createServer(redis, httpServer);
