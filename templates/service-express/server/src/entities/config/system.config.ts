@@ -37,7 +37,10 @@ interface ISentryConf extends ILogConf {
 //#endmodule sentry
 
 //#module otel_log|otel_trace
-interface IOpenTelemetryConf extends ILogConf {
+interface IOpenTelemetryBaseConf {
+    // 是否启用
+    readonly enabled: boolean;
+
     // 日志跟踪地址
     readonly endpoint: string;
 
@@ -45,6 +48,19 @@ interface IOpenTelemetryConf extends ILogConf {
     readonly token?: string;
 }
 //#endmodule otel_log|otel_trace
+
+//#module otel_log
+interface IOpenTelemetryLogConf extends IOpenTelemetryBaseConf, ILogConf {
+
+}
+//#endmodule otel_log
+
+//#module otel_trace
+interface IOpenTelemetryTraceConf extends IOpenTelemetryBaseConf {
+    // 采样率 0~1 之间
+    readonly sample_ratio?: number;
+}
+//#endmodule otel_trace
 
 export interface ISystemConf {
     //#module i18n
@@ -59,7 +75,7 @@ export interface ISystemConf {
         readonly sentry?: ISentryConf,
         //#endmodule sentry
         //#module otel_log
-        readonly open_telemetry?: IOpenTelemetryConf
+        readonly open_telemetry?: IOpenTelemetryLogConf
         //#endmodule otel_log
     };
     readonly req_log: {
@@ -68,7 +84,7 @@ export interface ISystemConf {
     //#module otel_trace
     // 链路跟踪
     readonly trace: {
-        readonly open_telemetry?: Omit<IOpenTelemetryConf, 'level'>
+        readonly open_telemetry?: IOpenTelemetryTraceConf
     };
     //#endmodule otel_trace
     //#module monitor
