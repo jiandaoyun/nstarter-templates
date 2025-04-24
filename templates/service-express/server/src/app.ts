@@ -2,7 +2,7 @@ import { Logger } from 'nstarter-core';
 import { sleep } from 'nstarter-utils';
 import './schema';
 //#module otel_trace
-import { trace } from './trace';
+import { trace, startTrace } from './trace';
 //#endmodule otel_trace
 import {
     //#module mongodb
@@ -38,7 +38,6 @@ import { startQueueProducer, loadQueueConsumers } from './services/queue.service
 import { startCronJobs } from './services/cron.service';
 //#endmodule cron
 import { Consts } from './constants';
-import { config } from './config';
 
 process.on('uncaughtException', (err) => {
     Logger.error(err);
@@ -87,6 +86,9 @@ class AppManager {
             //#module redis
             await redisComponent.shutdown();
             //#endmodule redis
+            //#module otel_trace
+            await trace.shutdown();
+            //#endmodule otel_trace
         } catch (err: any) {
             Logger.error(err);
         } finally {
@@ -107,9 +109,7 @@ class AppManager {
 
     public static async start() {
         //#module otel_trace
-        if (config.system.trace.open_telemetry?.enabled) {
-            trace.start();
-        }
+        startTrace();
         //#endmodule otel_trace
 
         // 基础组件
