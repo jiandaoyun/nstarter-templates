@@ -55,6 +55,15 @@ const getOTelTransportFormat = (logger: string) => {
         if (context) {
             info.ctx_trace_id = context.traceId;
         }
+        if (info.metadata) {
+            // 日志预处理，避免生成无限量字段
+            const meta = info.metadata as any;
+            for (const [key, val] of Object.entries(meta)) {
+                if (typeof val === 'object') {
+                    meta[key] = JSON.stringify(val);
+                }
+            }
+        }
         return info;
     })();
 };
