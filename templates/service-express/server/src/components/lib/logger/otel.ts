@@ -20,13 +20,20 @@ const loggerProvider = new LoggerProvider({
         'service_env': config.env
     })
 });
+
+// 请求头参数处理
+const headers: Record<string, string> = {
+    ...otelConf?.headers
+};
+if (otelConf?.token) {
+    headers['Authorization'] = `Basic ${ otelConf.token }`;
+}
+
 loggerProvider.addLogRecordProcessor(
     new BatchLogRecordProcessor(
         new OTLPLogExporter({
             url: otelConf?.endpoint,
-            headers: otelConf?.token ? {
-                'Authorization': `Basic ${ otelConf.token }`
-            }: {},
+            headers,
             concurrencyLimit: 1,
         })
     )

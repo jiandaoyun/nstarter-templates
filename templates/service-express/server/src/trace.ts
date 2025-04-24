@@ -19,13 +19,19 @@ const otelConf = config.system.trace.open_telemetry;
  */
 const isTraceEnabled = otelConf?.enabled && process.env.NS_TRACE_ENABLED === 'true';
 
+// 请求头参数处理
+const headers: Record<string, string> = {
+    ...otelConf?.headers
+};
+if (otelConf?.token) {
+    headers['Authorization'] = `Basic ${ otelConf.token }`;
+}
+
 // @note 需要在启动过程的最初阶段进行初始化
 export const trace = new TraceSDK({
     traceExporter: new OTLPTraceExporter({
         url: otelConf?.endpoint,
-        headers: otelConf?.token ? {
-            'Authorization': `Basic ${ otelConf.token }`
-        }: {},
+        headers,
         concurrencyLimit: 1,
     }),
     instrumentations: [

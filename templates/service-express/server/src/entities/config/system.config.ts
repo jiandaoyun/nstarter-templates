@@ -46,6 +46,14 @@ interface IOpenTelemetryBaseConf {
 
     // 鉴权 token, 目前仅支持 http basic auth
     readonly token?: string;
+
+    /**
+     * 扩展 header
+     * @default {}
+     */
+    readonly headers?: {
+        [key: string]: string
+    };
 }
 //#endmodule otel_log|otel_trace
 
