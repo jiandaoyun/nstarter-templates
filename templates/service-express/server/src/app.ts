@@ -93,7 +93,7 @@ class AppManager {
             Logger.error(err);
         } finally {
             // 等待日志记录
-            sleep(1000);
+            await sleep(1000);
             process.exit(0);
         }
     }

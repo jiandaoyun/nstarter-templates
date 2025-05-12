@@ -109,7 +109,7 @@ const runScanner = async () => {
         console.error(err.stack);
         return process.exit(1);
     }
-}
+};
 
 if (require.main === module) {
     runScanner().then();

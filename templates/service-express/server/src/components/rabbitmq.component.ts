@@ -13,6 +13,13 @@ export class RabbitMqComponent extends BaseComponent {
     }
 
     public async init() {
+        this._amqp.connection.on('connectFailed', () => {
+            Logger.error(`RabbitMQ connection failed`);
+        });
+        this._amqp.connection.on('disconnect', () => {
+            Logger.error(`RabbitMQ connection disconnected`);
+        });
+
         try {
             await this._amqp.connect();
             this.setReady(true);
