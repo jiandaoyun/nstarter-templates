@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1
+
+* update: 显式引入 OpenTelemetry 的上下文管理 ContextManager
+
 ## 3.1.0
 
 * feat: 引入 OpenTelemetry 日志记录模块 

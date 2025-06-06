@@ -3,6 +3,7 @@ import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentation
 import { ExpressLayerType } from '@opentelemetry/instrumentation-express';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { TraceIdRatioBasedSampler, AlwaysOnSampler } from '@opentelemetry/sdk-trace-node';
+import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks';
 import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
 import { ATTR_HOST_NAME } from '@opentelemetry/semantic-conventions/incubating';
 
@@ -29,6 +30,7 @@ if (otelConf?.token) {
 
 // @note 需要在启动过程的最初阶段进行初始化
 export const trace = new TraceSDK({
+    contextManager: new AsyncLocalStorageContextManager(),
     traceExporter: new OTLPTraceExporter({
         url: otelConf?.endpoint,
         headers,
