@@ -209,6 +209,7 @@ modules:
       - system.trace.open_telemetry
     packages:
       - '@opentelemetry/auto-instrumentations-node'
+      - '@opentelemetry/context-async-hooks'
       - '@opentelemetry/exporter-trace-otlp-proto'
       - '@opentelemetry/instrumentation'
       - '@opentelemetry/resources'
