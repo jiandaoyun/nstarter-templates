@@ -6,6 +6,7 @@ import { ATTR_SERVICE_VERSION, ATTR_SERVICE_NAME } from '@opentelemetry/semantic
 import { ATTR_HOST_NAME } from '@opentelemetry/semantic-conventions/incubating';
 import { format } from 'winston';
 import { ContextProvider } from 'nstarter-core';
+import { ObjectId } from 'nstarter-mongodb';
 
 import { config } from '../../../config';
 import { pkg } from '../../../pkg';
@@ -60,7 +61,18 @@ const getOTelTransportFormat = (logger: string) => {
             const meta = info.metadata as any;
             for (const [key, val] of Object.entries(meta)) {
                 if (typeof val === 'object') {
-                    meta[key] = JSON.stringify(val);
+                    // 处理value 本身就是ObjectId情况
+                    if (val instanceof ObjectId) {
+                        meta[key] = val.toString();
+                        continue;
+                    }
+                    try {
+                        // 序列化
+                        meta[key] = JSON.stringify(val);
+                    } catch (error) {
+                        // 如果无法序列化（如循环引用），标记为 "[Circular]"
+                        meta[key] = '[Circular]';
+                    }
                 }
             }
         }
