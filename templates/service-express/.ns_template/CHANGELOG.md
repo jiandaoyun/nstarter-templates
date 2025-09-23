@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.0
+
+* 框架组件升级
+
+
 ## 3.1.1
 
 * update: 显式引入 OpenTelemetry 的上下文管理 ContextManager
