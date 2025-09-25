@@ -49,7 +49,7 @@ export class I18n {
             ns: o.namespace,
             supportedLngs: this._locales,
             fallbackLng: o.defaultLocale,
-            compatibilityJSON: 'v3',
+            compatibilityJSON: 'v4',
             lowerCaseLng: true,
             keySeparator: false,
             interpolation: {

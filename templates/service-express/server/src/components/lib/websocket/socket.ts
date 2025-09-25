@@ -7,7 +7,7 @@ import type { IRedis } from 'nstarter-redis';
 import SocketIO from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import cookieParser from 'cookie-parser';
-import RedisStore from 'connect-redis';
+import { RedisStore } from 'connect-redis';
 import session from 'express-session';
 import type { Request, Response, NextFunction } from 'express';
 import { Logger } from 'nstarter-core';

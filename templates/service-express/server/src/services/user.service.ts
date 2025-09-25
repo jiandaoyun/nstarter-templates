@@ -1,7 +1,7 @@
 import { service } from 'nstarter-core';
 import { repoSession, transaction } from 'nstarter-mongodb';
 import { cacheGet, cacheKey } from 'nstarter-cache';
-import type { IUserModel } from '../repositories';
+import type { IUserModel } from '../models';
 import { userRepo } from '../repositories';
 import { userCacheManager } from '../cache';
 

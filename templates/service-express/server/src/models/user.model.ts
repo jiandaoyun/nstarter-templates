@@ -1,9 +1,10 @@
 import { Schema } from 'mongoose';
 import { mongodb } from '../components';
+import type { IUserModel } from './types';
 
 const db = mongodb;
 
-const userSchema = new Schema({
+const userSchema = new Schema<IUserModel>({
     username: String,
     nickname: String,
     email: String,

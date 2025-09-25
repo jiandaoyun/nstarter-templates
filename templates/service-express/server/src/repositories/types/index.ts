@@ -1,1 +1,0 @@
-export { IUserModel } from './user';
