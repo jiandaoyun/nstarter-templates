@@ -1,7 +1,7 @@
 import { profiler } from 'nstarter-metrics';
 import { MongodbRepo, repoProvider } from 'nstarter-mongodb';
-import { userModel } from '../models/user.model';
-import type { IUserModel } from './types';
+import { userModel } from '../models';
+import type { IUserModel } from '../models/types';
 
 class UserRepo extends MongodbRepo {
     public async createOne(user: IUserModel) {
@@ -13,9 +13,12 @@ class UserRepo extends MongodbRepo {
 
     @profiler()
     public async findOneByUsername(username: string): Promise<IUserModel | null> {
-        return userModel.findOne({ username }).setOptions({
-            session: this._session
-        }).lean(true);
+        return userModel
+            .findOne({ username })
+            .setOptions({
+                session: this._session,
+            })
+            .lean(true);
     }
 }
 

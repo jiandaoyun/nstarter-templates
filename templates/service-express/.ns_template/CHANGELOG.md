@@ -2,7 +2,35 @@
 
 ## 4.0.0
 
+* 基础环境升级
+  - 升级 Node.js >= 22.19.0
+  - 升级 TypeScript -> 5.9.2
+
 * 框架组件升级
+  > https://nstarter-docs.jdydevelop.com/changes/changelog/
+  - `nstarter-core` -> 1.3.1
+  - `nstarter-config` -> 0.4.0
+  - `nstarter-mongodb` -> 0.7.0
+    - `mongoose` -> 8.18.2
+  - `nstarter-rabbitmq` -> 0.10.0
+  - `nstarter-redis` -> 0.4.0
+  - `nstarter-grpc` -> 0.6.0
+
+* 第三方组件升级
+  - `@sentry/node` -> 10.15.0
+  - `axios` -> 1.12.2
+  - `connect-redis` -> 9.0.0
+     > https://github.com/tj/connect-redis/releases/tag/v8.0.0
+     > https://github.com/tj/connect-redis/releases/tag/v9.0.0
+  - `express` -> 4.21.2
+  - `express-session` -> 1.18.2
+  - `helmet` -> 8.1.0
+  - `http-status` -> 1.8.1
+  - `i18next` -> 25.5.2
+  - `i18next-conv` -> 15.1.1
+  - `socket.io` -> 4.8.1
+  - `winston` -> 3.17.0
+  - `winston-transport` -> 4.9.0
 
 
 ## 3.1.1

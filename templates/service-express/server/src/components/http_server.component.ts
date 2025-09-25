@@ -3,7 +3,7 @@ import express from 'express';
 //#module web
 import session from 'express-session';
 //#module redis
-import RedisStore from 'connect-redis';
+import { RedisStore } from 'connect-redis';
 //#endmodule redis
 import cookieParser from 'cookie-parser';
 //#endmodule web
