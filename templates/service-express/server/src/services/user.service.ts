@@ -8,7 +8,7 @@ import { userCacheManager } from '../cache';
 @service()
 export class UserService {
     public async userCreate(user: IUserModel) {
-        return userRepo().createOne(user);
+        return await userRepo().createOne(user);
     }
 
     @transaction()
@@ -21,6 +21,6 @@ export class UserService {
 
     @cacheGet(userCacheManager)
     public async findUserByUsername(@cacheKey username: string): Promise<IUserModel | null> {
-        return userRepo().findOneByUsername(username);
+        return await userRepo().findOneByUsername(username);
     }
 }

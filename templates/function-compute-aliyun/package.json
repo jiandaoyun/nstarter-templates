@@ -12,7 +12,7 @@
   "devDependencies": {
     "@types/node": "^22.18.5",
     "eslint": "^8.56.0",
-    "eslint-config-nstarter": "^4.0.1",
+    "eslint-config-nstarter": "^4.1.0",
     "nstarter-tsconfig": "0.5.0",
     "typescript": "~5.9.2"
   }

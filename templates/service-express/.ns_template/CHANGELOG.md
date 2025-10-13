@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.0.1
+
+* 升级 `eslint-config-nstarter` -> 4.1.0
+    - 启用类型检查类规则支持
+    - 推荐使用 return await
+
+
 ## 4.0.0
 
 * 基础环境升级

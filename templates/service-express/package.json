@@ -84,7 +84,7 @@
     "chai": "^6.0.1",
     "chai-datetime": "^1.8.0",
     "eslint": "^8.56.0",
-    "eslint-config-nstarter": "^4.0.1",
+    "eslint-config-nstarter": "^4.1.0",
     "glob": "^11.0.0",
     "i18next-scanner": "4.5.0",
     "mkdirp": "^3.0.1",
