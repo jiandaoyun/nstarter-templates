@@ -19,6 +19,7 @@ storage:
     user: admin
     password: '!passw0rd'
     db: 'data'
+    useStableAPI: true
 
   redis:
     name: 'redis'
