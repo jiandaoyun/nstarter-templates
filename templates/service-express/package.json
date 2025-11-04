@@ -57,7 +57,7 @@
     "nstarter-entity": "0.4.0",
     "nstarter-grpc": "0.6.0",
     "nstarter-metrics": "0.4.0",
-    "nstarter-mongodb": "0.7.0",
+    "nstarter-mongodb": "0.7.1",
     "nstarter-otel-trace": "0.1.2",
     "nstarter-rabbitmq": "0.10.0",
     "nstarter-redis": "0.4.0",

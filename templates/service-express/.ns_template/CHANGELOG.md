@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.2
+
+* 升级 `nstarter-mongodb` -> 0.7.1
+  - 模板启用 mongodb Stable API 连接
+
 ## 4.0.1
 
 * 升级 `eslint-config-nstarter` -> 4.1.0
