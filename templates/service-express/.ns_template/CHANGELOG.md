@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.3
+
+* fix: 补充 monorepo 调整后，缺失的类型定义文件
+
 ## 4.0.2
 
 * 升级 `nstarter-mongodb` -> 0.7.1
